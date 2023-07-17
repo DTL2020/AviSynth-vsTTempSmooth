@@ -43,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>llvm</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <UseInteloneMKL>No</UseInteloneMKL>
     <UseILP64Interfaces1A>false</UseILP64Interfaces1A>
   </PropertyGroup>
@@ -144,6 +144,7 @@
       <FloatingPointModel>Precise</FloatingPointModel>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <InterproceduralOptimization>MultiFile</InterproceduralOptimization>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <OptimizeReferences>true</OptimizeReferences>
