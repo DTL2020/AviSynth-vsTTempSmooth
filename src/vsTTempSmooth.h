@@ -3,8 +3,9 @@
 #include <algorithm>
 #include <array>
 #include <vector>
+#include <limits>
 
-#include "avisynth.h"
+#include "include\avisynth.h"
 
 #define MAX_TEMP_RAD 128
 

@@ -543,17 +543,13 @@ TTempSmooth<pfclip, fp>::TTempSmooth(PClip _child, int maxr, int ythresh, int ut
     pMinSumMemU = 0;
     pMinSumMemV = 0;
 
-    int iMaxSum;
-
-    if (vi_src.ComponentSize() == 1)
-        iMaxSum = 255 * _maxr;
-    else if (vi_src.ComponentSize() == 2)
-        iMaxSum = 65535 * _maxr;
-
+    int iMaxSum = std::numeric_limits<int>::max();
+    float fMaxSum = std::numeric_limits<float>::max();
 
     if (_thUPD[0] > 0)
     {
         pIIRMemY = (uint8_t*)malloc(vi_src.width * vi_src.height * vi_src.ComponentSize());
+        memset(pIIRMemY, 0, vi_src.width* vi_src.height* vi_src.ComponentSize());
         pMinSumMemY = (int*)malloc(vi_src.width * vi_src.height * sizeof(int));
 
         if (vi_src.ComponentSize() <= 2)
@@ -561,13 +557,14 @@ TTempSmooth<pfclip, fp>::TTempSmooth(PClip _child, int maxr, int ythresh, int ut
             for (int i = 0; i < vi_src.width * vi_src.height; i++) pMinSumMemY[i] = iMaxSum;
         }
         else
-            for (int i = 0; i < vi_src.width * vi_src.height; i++) ((float*)pMinSumMemY)[i] = 2.0f;
+            for (int i = 0; i < vi_src.width * vi_src.height; i++) ((float*)pMinSumMemY)[i] = fMaxSum;
 
     }
 
     if (_thUPD[1] > 0)
     {
         pIIRMemU = (uint8_t*)malloc(vi_src.width * vi_src.height * vi_src.ComponentSize());
+        memset(pIIRMemU, 0, vi_src.width * vi_src.height * vi_src.ComponentSize());
         pMinSumMemU = (int*)malloc(vi_src.width * vi_src.height * sizeof(int));
 
         if (vi_src.ComponentSize() <= 2)
@@ -575,13 +572,14 @@ TTempSmooth<pfclip, fp>::TTempSmooth(PClip _child, int maxr, int ythresh, int ut
             for (int i = 0; i < vi_src.width * vi_src.height; i++) pMinSumMemU[i] = iMaxSum;
         }
         else
-            for (int i = 0; i < vi_src.width * vi_src.height; i++) ((float*)pMinSumMemU)[i] = 2.0f;
+            for (int i = 0; i < vi_src.width * vi_src.height; i++) ((float*)pMinSumMemU)[i] = fMaxSum;
 
     }
 
     if (_thUPD[2] > 0)
     {
         pIIRMemV = (uint8_t*)malloc(vi_src.width * vi_src.height * vi_src.ComponentSize());
+        memset(pIIRMemV, 0, vi_src.width * vi_src.height * vi_src.ComponentSize());
         pMinSumMemV = (int*)malloc(vi_src.width * vi_src.height * sizeof(int));
 
         if (vi_src.ComponentSize() <= 2)
@@ -589,7 +587,7 @@ TTempSmooth<pfclip, fp>::TTempSmooth(PClip _child, int maxr, int ythresh, int ut
             for (int i = 0; i < vi_src.width * vi_src.height; i++) pMinSumMemV[i] = iMaxSum;
         }
         else
-            for (int i = 0; i < vi_src.width * vi_src.height; i++) ((float*)pMinSumMemV)[i] = 2.0f;
+            for (int i = 0; i < vi_src.width * vi_src.height; i++) ((float*)pMinSumMemV)[i] = fMaxSum;
     }
 
 
